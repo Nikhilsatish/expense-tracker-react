@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AddExpenseForm from "./components/AddExpenseForm";
 
 const INITIAL = [
   { id: 1, title: "Lunch", amount: 250, category: "Food" },
@@ -7,29 +8,24 @@ const INITIAL = [
 ];
 
 function App() {
-  const [expenses, setExpenses] = useState(INITIAL);
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Food");
-  const [amount, setAmount] = useState(0);
+  const [expenses, setExpenses] = useState(() => {
+    const saved = localStorage.getItem("expenses");
+    return saved ? JSON.parse(saved) : INITIAL;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
+
+  useEffect(() => {
+    console.log("App mounted");
+    return () => console.log("App unmounted");
+  }, []);
 
   const total = expenses.reduce((sum, e) => sum + e.amount, 0);
 
-  function handleAdd(e) {
-    e.preventDefault();
-
-    if (!title.trim() || !amount) return;
-
-    setExpenses([
-      {
-        id: Date.now(),
-        title: title.trim(),
-        amount: Number(amount),
-        category: category,
-      },
-      ...expenses,
-    ]);
-    setTitle("");
-    setAmount("");
+  function handleAdd(newExpense) {
+    setExpenses([{ ...newExpense, id: Date.now() }, ...expenses]);
   }
 
   function handleDelete(id) {
@@ -47,26 +43,8 @@ function App() {
       <h1>💸 ExpenseTracker</h1>
       <p>Total: ₹{total}</p>
 
-      <form onSubmit={handleAdd}>
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="What did you spend on?"
-        />
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount ₹"
-        />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="Food">Food</option>
-          <option value="Travel">Travel</option>
-          <option value="Bills">Bills</option>
-          <option value="Shopping">Shopping</option>
-        </select>
-        <button type="submit">Add</button>
-      </form>
+      <AddExpenseForm onAdd={handleAdd} />
+
       <ul>
         {expenses.map((e) => (
           <li key={e.id}>
