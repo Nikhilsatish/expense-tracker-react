@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import AddExpenseForm from "./components/AddExpenseForm";
 import ThemeContext from "./context/ThemeProvider";
+import CurrencyContext from "./context/CurrencyProvider";
 import "./App.css";
+
 
 const INITIAL = [
   { id: 1, title: "Lunch", amount: 250, category: "Food" },
@@ -16,6 +18,7 @@ function App() {
   });
 
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const {currency} = useContext(CurrencyContext);
 
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -49,7 +52,10 @@ function App() {
       </button>
 
       <h1>ExpenseTracker</h1>
-      <p>Total: ₹{total}</p>
+      <p>
+        Total: {currency}
+        {total}
+      </p>
 
       <AddExpenseForm onAdd={handleAdd} />
 
