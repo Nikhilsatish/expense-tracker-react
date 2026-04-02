@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AddExpenseForm from "./components/AddExpenseForm";
+import ThemeContext from "./context/ThemeProvider";
+import "./App.css";
 
 const INITIAL = [
   { id: 1, title: "Lunch", amount: 250, category: "Food" },
@@ -12,6 +14,8 @@ function App() {
     const saved = localStorage.getItem("expenses");
     return saved ? JSON.parse(saved) : INITIAL;
   });
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -39,8 +43,12 @@ function App() {
   if (expenses.length === 0) return "Empty list...!";
 
   return (
-    <div className="app">
-      <h1>💸 ExpenseTracker</h1>
+    <div className={`app ${theme}`}>
+      <button onClick={toggleTheme}>
+        {theme === "light" ? "Dark" : "Light"}
+      </button>
+
+      <h1>ExpenseTracker</h1>
       <p>Total: ₹{total}</p>
 
       <AddExpenseForm onAdd={handleAdd} />

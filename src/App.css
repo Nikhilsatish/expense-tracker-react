@@ -1,0 +1,7 @@
+/* Light theme (default) */
+.app.light { background: #ffffff; color: #1a1d23; }
+
+/* Dark theme */
+.app.dark  { background: #1a1d23; color: #e8eaf0; }
+.app.dark form input,
+.app.dark form select { background: #2a2f42; color: #e8eaf0; border-color: #3d4460; }
