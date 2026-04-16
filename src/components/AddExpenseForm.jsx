@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function AddExpenseForm({ onAdd } ) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Food");
   const [amount, setAmount] = useState(0);
+
+
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    titleRef.current.focus();
+  },[]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +25,7 @@ function AddExpenseForm({ onAdd } ) {
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <input
+        ref={titleRef}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="What did you spend on?"

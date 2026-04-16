@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AddExpenseForm from "./components/AddExpenseForm";
 import ThemeContext from "./context/ThemeProvider";
 import CurrencyContext from "./context/CurrencyProvider";
 import "./App.css";
-
 
 const INITIAL = [
   { id: 1, title: "Lunch", amount: 250, category: "Food" },
@@ -18,7 +17,9 @@ function App() {
   });
 
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const {currency} = useContext(CurrencyContext);
+  const { currency } = useContext(CurrencyContext);
+  const prevTotalRef = useRef(0);
+  const [diff, setDiff] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -30,6 +31,13 @@ function App() {
   }, []);
 
   const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+
+  useEffect(() => {
+    const prev = prevTotalRef.current;
+    setDiff(total - prev);
+
+    prevTotalRef.current = total;
+  }, [total]);
 
   function handleAdd(newExpense) {
     setExpenses([{ ...newExpense, id: Date.now() }, ...expenses]);
@@ -43,8 +51,6 @@ function App() {
     );
   }
 
-  if (expenses.length === 0) return "Empty list...!";
-
   return (
     <div className={`app ${theme}`}>
       <button onClick={toggleTheme}>
@@ -56,6 +62,12 @@ function App() {
         Total: {currency}
         {total}
       </p>
+      {diff !== 0 && (
+        <p>
+          Change: {diff > 0 ? "+" : ""}
+          {diff}
+        </p>
+      )}
 
       <AddExpenseForm onAdd={handleAdd} />
 
