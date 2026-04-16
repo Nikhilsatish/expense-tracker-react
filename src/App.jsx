@@ -21,21 +21,20 @@ function App() {
   const prevTotalRef = useRef(0);
   const [diff, setDiff] = useState(0);
 
-  useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  }, [expenses]);
+  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
 
   useEffect(() => {
     console.log("App mounted");
     return () => console.log("App unmounted");
   }, []);
 
-  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
 
   useEffect(() => {
     const prev = prevTotalRef.current;
     setDiff(total - prev);
-
     prevTotalRef.current = total;
   }, [total]);
 
