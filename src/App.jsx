@@ -1,4 +1,11 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import AddExpenseForm from "./components/AddExpenseForm";
 import ThemeContext from "./context/ThemeProvider";
 import CurrencyContext from "./context/CurrencyProvider";
@@ -42,13 +49,20 @@ function App() {
     setExpenses([{ ...newExpense, id: Date.now() }, ...expenses]);
   }
 
-  function handleDelete(id) {
-    setExpenses(
-      expenses.filter((expense) => {
+  const handleDelete = useCallback((id) => {
+    setExpenses((prev) =>
+      prev.filter((expense) => {
         return expense.id !== id;
       }),
     );
-  }
+  }, []);
+
+  const categoryTotals = useMemo(() => {
+    return expenses.reduce((acc, e) => {
+      acc[e.category] = (acc[e.category] || 0) + e.amount;
+      return acc;
+    }, {});
+  }, [expenses]);
 
   return (
     <div className={`app ${theme}`}>
@@ -67,6 +81,12 @@ function App() {
           {diff}
         </p>
       )}
+
+      {Object.entries(categoryTotals).map(([category, cattotal]) => (
+        <p key={category}>
+          {category} = {cattotal}
+        </p>
+      ))}
 
       <AddExpenseForm onAdd={handleAdd} />
 
