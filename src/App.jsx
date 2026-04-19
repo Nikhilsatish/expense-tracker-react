@@ -2,13 +2,14 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
 import AddExpenseForm from "./components/AddExpenseForm";
 import ThemeContext from "./context/ThemeProvider";
 import CurrencyContext from "./context/CurrencyProvider";
+import { useExpenseSummary } from "./hooks/useExpenseSummary";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import "./App.css";
 
 const INITIAL = [
@@ -18,26 +19,18 @@ const INITIAL = [
 ];
 
 function App() {
-  const [expenses, setExpenses] = useState(() => {
-    const saved = localStorage.getItem("expenses");
-    return saved ? JSON.parse(saved) : INITIAL;
-  });
+  const [expenses, setExpenses] = useLocalStorage("expenses", INITIAL);
+  const { total, categoryTotals } = useExpenseSummary(expenses);
 
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { currency } = useContext(CurrencyContext);
   const prevTotalRef = useRef(0);
   const [diff, setDiff] = useState(0);
 
-  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-
   useEffect(() => {
     console.log("App mounted");
     return () => console.log("App unmounted");
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  }, [expenses]);
 
   useEffect(() => {
     const prev = prevTotalRef.current;
@@ -56,13 +49,6 @@ function App() {
       }),
     );
   }, []);
-
-  const categoryTotals = useMemo(() => {
-    return expenses.reduce((acc, e) => {
-      acc[e.category] = (acc[e.category] || 0) + e.amount;
-      return acc;
-    }, {});
-  }, [expenses]);
 
   return (
     <div className={`app ${theme}`}>
