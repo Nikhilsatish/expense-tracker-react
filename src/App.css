@@ -1,7 +1,507 @@
-/* Light theme (default) */
-.app.light { background: #ffffff; color: #1a1d23; }
+/* ── Reset ─────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Dark theme */
-.app.dark  { background: #1a1d23; color: #e8eaf0; }
-.app.dark form input,
-.app.dark form select { background: #2a2f42; color: #e8eaf0; border-color: #3d4460; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  font-size: 15px;
+}
+
+/* ── App wrapper ───────────────────────────────────────── */
+/* theme class is toggled by ThemeContext */
+.app {
+  min-height: 100vh;
+}
+
+.app.light {
+  background: #f5f5f5;
+  color: #1a1d23;
+}
+
+.app.dark {
+  background: #1a1d23;
+  color: #e8eaf0;
+}
+
+/* ── Navbar ────────────────────────────────────────────── */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #ffffff;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.app.dark .navbar {
+  background: #13161d;
+  border-bottom-color: #2a2f3e;
+}
+
+.navbar a {
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #5a6072;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+
+.navbar a:hover {
+  background: #f0f0f0;
+  color: #1a1d23;
+}
+
+/* React Router adds this class automatically to the current link */
+.navbar a.active {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+.app.dark .navbar a {
+  color: #8b90a0;
+}
+
+.app.dark .navbar a:hover {
+  background: #1e2230;
+  color: #e8eaf0;
+}
+
+.app.dark .navbar a.active {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+/* ── Page container ────────────────────────────────────── */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+/* ── Page headings ─────────────────────────────────────── */
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* ── Summary cards (Dashboard) ─────────────────────────── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.app.dark .summary-card {
+  background: #13161d;
+  border-color: #2a2f3e;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+/* ── Category breakdown ────────────────────────────────── */
+.category-list {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.app.dark .category-list {
+  background: #13161d;
+  border-color: #2a2f3e;
+}
+
+.category-list h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5a6072;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.category-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.category-row:last-child {
+  border-bottom: none;
+}
+
+.app.dark .category-row {
+  border-bottom-color: #2a2f3e;
+}
+
+/* ── Expense list ──────────────────────────────────────── */
+.expense-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expense-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.app.dark .expense-item {
+  background: #13161d;
+  border-color: #2a2f3e;
+}
+
+.expense-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.expense-category {
+  font-size: 11px;
+  background: #f0f0f0;
+  color: #666;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.app.dark .expense-category {
+  background: #1e2230;
+  color: #8b90a0;
+}
+
+.expense-amount {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7c3aed;
+  min-width: 60px;
+  text-align: right;
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+button {
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.btn-primary {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #6d28d9;
+}
+
+.btn-delete {
+  background: none;
+  border: 1px solid #e0e0e0;
+  color: #999;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  border: 1px solid #d1d5db;
+  color: #555;
+  padding: 9px 18px;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+/* ── Add Expense form ──────────────────────────────────── */
+.add-form {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.app.dark .add-form {
+  background: #13161d;
+  border-color: #2a2f3e;
+}
+
+.add-form h2 {
+  font-size: 17px;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a6072;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  outline: none;
+  background: #ffffff;
+  color: #1a1d23;
+  transition: border-color 0.15s;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #7c3aed;
+}
+
+.app.dark .form-input,
+.app.dark .form-select {
+  background: #1e2230;
+  color: #e8eaf0;
+  border-color: #2a2f3e;
+}
+
+.app.dark .form-input:focus,
+.app.dark .form-select:focus {
+  border-color: #7c3aed;
+}
+
+.form-input::placeholder {
+  color: #9ba3b5;
+}
+
+.form-error {
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.app.dark .form-actions {
+  border-top-color: #2a2f3e;
+}
+
+/* ── Empty state ───────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 48px 20px;
+  background: #ffffff;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  color: #999;
+  font-size: 14px;
+}
+
+.app.dark .empty {
+  background: #13161d;
+  border-color: #2a2f3e;
+  color: #555c72;
+}
+
+.empty a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ── Theme toggle button ───────────────────────────────── */
+.theme-btn {
+  margin-left: auto;
+  background: #f0f0f0;
+  border: 1px solid #d1d5db;
+  color: #555;
+  padding: 5px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.app.dark .theme-btn {
+  background: #1e2230;
+  border-color: #2a2f3e;
+  color: #8b90a0;
+}
+
+.theme-btn:hover {
+  background: #e0e0e0;
+}
+
+.app.dark .theme-btn:hover {
+  background: #252a3a;
+}
+
+/* ── Currency toggle ───────────────────────────────────── */
+.currency-btn {
+  background: none;
+  border: 1px solid #d1d5db;
+  color: #7c3aed;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.currency-btn:hover {
+  background: #f5f3ff;
+}
+
+/* ── Settings page ─────────────────────────────────────── */
+.settings-section {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.app.dark .settings-section {
+  background: #13161d;
+  border-color: #2a2f3e;
+}
+
+.settings-section h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* ── Expense detail page ───────────────────────────────── */
+.detail-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.app.dark .detail-card {
+  background: #13161d;
+  border-color: #2a2f3e;
+}
+
+.detail-card h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.app.dark .detail-row {
+  border-bottom-color: #2a2f3e;
+}
+
+.detail-row span:first-child {
+  color: #5a6072;
+}
+
+.detail-row span:last-child {
+  font-weight: 600;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ── View link in expense rows ─────────────────────────── */
+a.view-link {
+  font-size: 12px;
+  color: #7c3aed;
+  text-decoration: none;
+  padding: 3px 8px;
+  border: 1px solid #ddd6fe;
+  border-radius: 4px;
+}
+
+a.view-link:hover {
+  background: #f5f3ff;
+}
