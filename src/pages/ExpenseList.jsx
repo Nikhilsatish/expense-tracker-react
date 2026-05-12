@@ -18,7 +18,9 @@ function ExpenseList({ expenses, onDelete }) {
             <span className="expense-title">{e.title}</span>
             <span className="expense-amount">₹{e.amount}</span>
             <Link to={`/expense/${e.id}`}>View</Link>
-            <button className="btn-primary btn-delete" onClick={() => onDelete(e.id)}>Delete</button>
+            <button className="btn-delete" onClick={() => onDelete(e.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
