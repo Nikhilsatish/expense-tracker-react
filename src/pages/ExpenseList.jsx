@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import CurrencyContext from "../context/CurrencyProvider";
 
 function ExpenseList({ expenses, onDelete }) {
+  const { currency } = useContext(CurrencyContext);
+
   if (expenses.length === 0) {
     return (
       <p>
@@ -16,7 +20,10 @@ function ExpenseList({ expenses, onDelete }) {
         {expenses.map((e) => (
           <li className="expense-item" key={e.id}>
             <span className="expense-title">{e.title}</span>
-            <span className="expense-amount">₹{e.amount}</span>
+            <span className="expense-amount">
+              {currency}
+              {e.amount}
+            </span>
             <Link to={`/expense/${e.id}`}>View</Link>
             <button className="btn-delete" onClick={() => onDelete(e.id)}>
               Delete

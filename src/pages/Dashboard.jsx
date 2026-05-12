@@ -1,7 +1,10 @@
 import { useExpenseSummary } from "../hooks/useExpenseSummary";
+import { useContext } from "react";
+import CurrencyContext from "../context/CurrencyProvider";
 
 function Dashboard({ expenses }) {
   const { total, categoryTotals, count } = useExpenseSummary(expenses);
+  const { currency } = useContext(CurrencyContext);
 
   return (
     <div className="container">
@@ -10,7 +13,10 @@ function Dashboard({ expenses }) {
       <div className="summary-grid">
         <div className="summary-card">
           <div className="summary-label">Total Spent</div>
-          <div className="summary-value">₹{total}</div>
+          <div className="summary-value">
+            {currency}
+            {total}
+          </div>
         </div>
         <div className="summary-card">
           <div className="summary-label">Expenses</div>
@@ -24,7 +30,10 @@ function Dashboard({ expenses }) {
           {Object.entries(categoryTotals).map(([cat, amt]) => (
             <div key={cat} className="category-row">
               <span>{cat}</span>
-              <span>₹{amt}</span>
+              <span>
+                {currency}
+                {amt}
+              </span>
             </div>
           ))}
         </div>
