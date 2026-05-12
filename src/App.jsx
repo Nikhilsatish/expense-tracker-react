@@ -19,7 +19,7 @@ const ExpenseDetail = lazy(() => import("./pages/ExpenseDetail"));
 const INITIAL_EXPENSES = [
   { id: 1, title: "Lunch", amount: 250, category: "Food", date: "2025-01-10" },
   { id: 2, title: "Auto", amount: 80, category: "Travel", date: "2025-01-11" },
-  {
+  { 
     id: 3,
     title: "Netflix",
     amount: 199,
