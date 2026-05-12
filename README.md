@@ -121,7 +121,7 @@ Open [http://localhost:5173](http://localhost:5173)
 |---|---|---|
 | [TaskFlow](https://github.com/Nikhilsatish/react-taskflow) | R1–R10 · Fundamentals | ✅ Complete |
 | **ExpenseTracker** (this one) | R11–R20 · Hooks + Context + Router | ✅ Complete |
-| [DevBoard](https://github.com/Nikhilsatish/devboard-github-explorer) | R21–R30 · Redux + Advanced Patterns | ⏳ Upcoming |
+| [DevBoard](https://github.com/Nikhilsatish/devboard) | R21–R30 · Redux + Advanced Patterns | ⏳ Upcoming |
 
 ---
 
