@@ -67,14 +67,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav className="navbar">
-        <NavLink to="/dashboard">Dashboard</NavLink>
-        <NavLink to="/expenses">Expenses</NavLink>
-        <NavLink to="/add">+ Add</NavLink>
-        <NavLink to="/settings">Settings</NavLink>
-      </nav>
-
       <div className={`app ${theme}`}>
+        <nav className="navbar">
+          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/expenses">Expenses</NavLink>
+          <NavLink to="/add">+ Add</NavLink>
+          <NavLink to="/settings">Settings</NavLink>
+        </nav>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
 
