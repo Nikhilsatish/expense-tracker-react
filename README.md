@@ -2,7 +2,7 @@
 
 A multi-page personal finance tracker with category breakdowns, monthly summaries, dark/light theme switching, currency toggle, and localStorage persistence. Built as the second project in my 3-part React learning series — this is where hooks, Context API, and routing all come together.
 
-**[Live Demo →](https://expense-tracker-nikhil.vercel.app)** &nbsp;|&nbsp; **[GitHub →](https://github.com/Nikhilsatish/expense-tracker-react)**
+**[Live Demo →](https://expense-tracker-react-black-delta.vercel.app/)** &nbsp;|&nbsp; **[GitHub →](https://github.com/Nikhilsatish/expense-tracker-react)**
 
 > Project 2 of 3 in my React learning series. Covers R11–R20 — hooks, Context, custom hooks, and React Router.
 
