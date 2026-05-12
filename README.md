@@ -10,8 +10,8 @@ A multi-page personal finance tracker with category breakdowns, monthly summarie
 
 ## 📸 Preview
 
-> Add screenshot after deploying:
-> `![ExpenseTracker Preview](./public/preview.png)`
+> <img width="1920" height="762" alt="image" src="https://github.com/user-attachments/assets/0d644801-fb43-4f7a-b6a0-5be0d53bb8e8" />
+
 
 ---
 
